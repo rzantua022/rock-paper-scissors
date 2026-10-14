@@ -1,159 +1,432 @@
-// Scroll-triggered section reveal
-const revealEls = document.querySelectorAll('.reveal');
+// ==========================================
+// GAME VARIABLES
+// ==========================================
 
-if (revealEls.length && 'IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+let playerScore = 0;
 
-    revealEls.forEach((el) => revealObserver.observe(el));
-} else {
-    // No IntersectionObserver support: just show everything
-    revealEls.forEach((el) => el.classList.add('is-visible'));
-}
+let computerScore = 0;
 
-// Mobile nav
-const navToggle = document.getElementById('navToggle');
-const navList = document.getElementById('navList');
+let gameOver = false;
 
-function closeNav(returnFocus) {
-    if (!navList || !navToggle) return;
-    navList.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-    if (returnFocus) navToggle.focus();
-}
 
-if (navToggle && navList) {
-    navToggle.addEventListener('click', () => {
-        const isOpen = navList.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', String(isOpen));
-    });
+// ==========================================
+// IMAGE FILES
+// ==========================================
+// The folder is named "Image" with a capital I.
 
-    navList.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => closeNav(false));
-    });
+const images = {
 
-    // Click outside closes the menu
-    document.addEventListener('click', (e) => {
-        if (!navList.classList.contains('open')) return;
-        if (navList.contains(e.target) || navToggle.contains(e.target)) return;
-        closeNav(false);
-    });
-}
+    rock: "Image/rock.webp",
 
-// Highlight the nav link for the section currently in view
-const navLinks = navList ? Array.from(navList.querySelectorAll('a[href^="#"]')) : [];
-const linkById = new Map();
-navLinks.forEach((a) => linkById.set(a.getAttribute('href').slice(1), a));
+    paper: "Image/paper.webp",
 
-if (linkById.size && 'IntersectionObserver' in window) {
-    const spyTargets = ['hero', ...linkById.keys()]
-        .map((id) => document.getElementById(id))
-        .filter(Boolean);
+    scissors: "Image/scissors.jpg"
 
-    const setCurrent = (id) => {
-        navLinks.forEach((a) => a.removeAttribute('aria-current'));
-        const active = linkById.get(id);
-        if (active) active.setAttribute('aria-current', 'true');
-    };
+};
 
-    const spy = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) setCurrent(entry.target.id);
-        });
-    }, { rootMargin: '-40% 0px -55% 0px' });
 
-    spyTargets.forEach((el) => spy.observe(el));
-}
+// ==========================================
+// PLAY ROUND
+// ==========================================
 
-// Certificate lightbox (dialog)
-const lightbox = document.getElementById('certLightbox');
-const lightboxImage = document.getElementById('lightboxImage');
-const lightboxCaption = document.getElementById('lightboxCaption');
-const lightboxClose = document.getElementById('lightboxClose');
-const lightboxPrev = document.getElementById('lightboxPrev');
-const lightboxNext = document.getElementById('lightboxNext');
-const certThumbs = Array.from(document.querySelectorAll('.cert-thumb'));
+function playRound(playerChoice) {
 
-let activeCert = 0;
-let lastFocused = null;
+    // Don't allow another round after the
+    // match has already ended.
 
-function showCert(index) {
-    if (!lightboxImage || !certThumbs.length) return;
-    activeCert = (index + certThumbs.length) % certThumbs.length;
-    const img = certThumbs[activeCert].querySelector('img');
-    if (!img) return;
-    lightboxImage.src = img.src;
-    lightboxImage.alt = img.alt;
-    if (lightboxCaption) {
-        lightboxCaption.textContent = 'Certificate ' + (activeCert + 1) + ' of ' + certThumbs.length;
-    }
-}
+    if (gameOver) {
 
-function openLightbox(index) {
-    if (!lightbox) return;
-    lastFocused = document.activeElement;
-    showCert(index);
-    lightbox.hidden = false;
-    document.body.style.overflow = 'hidden';
-    if (lightboxClose) lightboxClose.focus();
-}
-
-function closeLightbox() {
-    if (!lightbox || lightbox.hidden) return;
-    lightbox.hidden = true;
-    if (lightboxImage) lightboxImage.removeAttribute('src');
-    document.body.style.overflow = '';
-    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
-}
-
-certThumbs.forEach((button, index) => {
-    button.addEventListener('click', () => openLightbox(index));
-});
-
-if (lightbox) {
-    lightbox.querySelectorAll('[data-close]').forEach((el) => {
-        el.addEventListener('click', closeLightbox);
-    });
-
-    if (lightboxPrev) lightboxPrev.addEventListener('click', () => showCert(activeCert - 1));
-    if (lightboxNext) lightboxNext.addEventListener('click', () => showCert(activeCert + 1));
-}
-
-document.addEventListener('keydown', (e) => {
-    // Nav: Escape closes the open mobile menu
-    if (e.key === 'Escape' && navList && navList.classList.contains('open')) {
-        closeNav(true);
         return;
+
     }
 
-    if (!lightbox || lightbox.hidden) return;
 
-    if (e.key === 'Escape') {
-        closeLightbox();
-    } else if (e.key === 'ArrowRight') {
-        showCert(activeCert + 1);
-    } else if (e.key === 'ArrowLeft') {
-        showCert(activeCert - 1);
-    } else if (e.key === 'Tab') {
-        // Keep focus inside the dialog
-        const focusable = [lightboxClose, lightboxPrev, lightboxNext].filter(Boolean);
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-        } else if (!focusable.includes(document.activeElement)) {
-            e.preventDefault();
-            first.focus();
+    // ==========================================
+    // COMPUTER CHOICE
+    // ==========================================
+
+    let choices = [
+
+        "rock",
+
+        "paper",
+
+        "scissors"
+
+    ];
+
+
+    // Computer randomly chooses one option.
+
+    let computerChoice =
+        choices[
+            Math.floor(
+                Math.random() * choices.length
+            )
+        ];
+
+
+    // ==========================================
+    // DISPLAY IMAGES
+    // ==========================================
+
+    let playerImage =
+        document.getElementById(
+            "playerImage"
+        );
+
+
+    let computerImage =
+        document.getElementById(
+            "computerImage"
+        );
+
+
+    // Change the player's image.
+
+    playerImage.src =
+        images[playerChoice];
+
+
+    // Change the computer's image.
+
+    computerImage.src =
+        images[computerChoice];
+
+
+    // ==========================================
+    // REMOVE OLD ANIMATION
+    // ==========================================
+
+    playerImage.classList.remove(
+        "player-animate"
+    );
+
+
+    computerImage.classList.remove(
+        "computer-animate"
+    );
+
+
+    // Force the browser to restart the animation.
+
+    void playerImage.offsetWidth;
+
+    void computerImage.offsetWidth;
+
+
+    // ==========================================
+    // ADD ANIMATION
+    // ==========================================
+
+    playerImage.classList.add(
+        "player-animate"
+    );
+
+
+    computerImage.classList.add(
+        "computer-animate"
+    );
+
+
+    // ==========================================
+    // DETERMINE WINNER
+    // ==========================================
+
+    let result;
+
+
+    // ==========================================
+    // TIE
+    // ==========================================
+
+    if (
+        playerChoice === computerChoice
+    ) {
+
+        result =
+            "🤝 It's a tie!";
+
+    }
+
+
+    else {
+
+        // ======================================
+        // WHILE LOOP
+        // ======================================
+        //
+        // These are the three combinations that
+        // allow the player to win.
+        //
+        // The while loop checks each combination
+        // until it finds a match or checks all 3.
+
+        let winningMoves = [
+
+            ["rock", "scissors"],
+
+            ["paper", "rock"],
+
+            ["scissors", "paper"]
+
+        ];
+
+
+        let moveIndex = 0;
+
+
+        while (
+            moveIndex < winningMoves.length &&
+            result === undefined
+        ) {
+
+            let winningMove =
+                winningMoves[moveIndex];
+
+
+            // Check if the player's choice
+            // beats the computer's choice.
+
+            if (
+                playerChoice === winningMove[0] &&
+                computerChoice === winningMove[1]
+            ) {
+
+                playerScore++;
+
+                result =
+                    "🎉 You win this round!";
+
+            }
+
+
+            moveIndex++;
+
         }
+
+
+        // If the player did not win and it
+        // wasn't a tie, the computer wins.
+
+        if (
+            result === undefined
+        ) {
+
+            computerScore++;
+
+            result =
+                "💻 Computer wins this round!";
+
+        }
+
     }
-});
+
+
+    // ==========================================
+    // DISPLAY RESULT
+    // ==========================================
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+
+        "You chose: <b>" +
+        playerChoice +
+        "</b><br>" +
+
+        "Computer chose: <b>" +
+        computerChoice +
+        "</b><br><br>" +
+
+        result;
+
+
+    // ==========================================
+    // DISPLAY SCORE
+    // ==========================================
+
+    document.getElementById(
+        "score"
+    ).innerHTML =
+
+        "You: " +
+        playerScore +
+
+        " | Computer: " +
+
+        computerScore;
+
+
+    // ==========================================
+    // CHECK MATCH WINNER
+    // ==========================================
+
+    if (
+        playerScore >= 5
+    ) {
+
+        gameOver = true;
+
+
+        document.getElementById(
+            "result"
+        ).innerHTML +=
+
+            "<br><br>" +
+
+            "🏆 <b>YOU WON THE MATCH!</b>";
+
+
+        endGame();
+
+    }
+
+
+    else if (
+        computerScore >= 5
+    ) {
+
+        gameOver = true;
+
+
+        document.getElementById(
+            "result"
+        ).innerHTML +=
+
+            "<br><br>" +
+
+            "💻 <b>COMPUTER WON THE MATCH!</b>";
+
+
+        endGame();
+
+    }
+
+}
+
+
+// ==========================================
+// END GAME
+// ==========================================
+
+function endGame() {
+
+    // Disable the Rock, Paper and Scissors buttons.
+
+    document
+        .getElementById("choices")
+        .classList
+        .add("disabled");
+
+
+    // Show the Play Again button.
+
+    document.getElementById(
+        "playAgain"
+    ).style.display =
+        "inline-block";
+
+}
+
+
+// ==========================================
+// NEW GAME
+// ==========================================
+
+function newGame() {
+
+    let reset = false;
+
+
+    // ==========================================
+    // DO-WHILE LOOP
+    // ==========================================
+    //
+    // A do...while loop always runs at least once.
+    //
+    // When Play Again is clicked, the scores and
+    // game status must be reset at least once.
+    //
+    // reset becomes true after the reset happens,
+    // so the loop safely stops.
+
+    do {
+
+        playerScore = 0;
+
+        computerScore = 0;
+
+        gameOver = false;
+
+        reset = true;
+
+    }
+
+    while (
+        reset === false
+    );
+
+
+    // ==========================================
+    // RESET SCORE
+    // ==========================================
+
+    document.getElementById(
+        "score"
+    ).innerHTML =
+
+        "You: 0 | Computer: 0";
+
+
+    // ==========================================
+    // RESET RESULT
+    // ==========================================
+
+    document.getElementById(
+        "result"
+    ).innerHTML =
+
+        "New game! Choose your move!";
+
+
+    // ==========================================
+    // RESET PLAYER IMAGE
+    // ==========================================
+
+    document.getElementById(
+        "playerImage"
+    ).src =
+        images.rock;
+
+
+    // ==========================================
+    // RESET COMPUTER IMAGE
+    // ==========================================
+
+    document.getElementById(
+        "computerImage"
+    ).src =
+        images.rock;
+
+
+    // ==========================================
+    // ENABLE BUTTONS
+    // ==========================================
+
+    document
+        .getElementById("choices")
+        .classList
+        .remove("disabled");
+
+
+    // ==========================================
+    // HIDE PLAY AGAIN
+    // ==========================================
+
+    document.getElementById(
+        "playAgain"
+    ).style.display =
+        "none";
+
+}
