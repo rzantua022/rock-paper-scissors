@@ -1,150 +1,431 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
+<script>document.documentElement.classList.add('js');</script>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Rock Paper Scissors</title>
+    <title>Ranel Zantua — IT Student & Developer</title>
+    <meta name="description" content="Portfolio of Ranel Andrew Zantua, an Information Technology student focused on software development, databases, and networking.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://rzantua022.github.io/My-Portfolio/">
+    <meta name="theme-color" content="#0b1220">
+
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="assets/favicon-32.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rzantua022.github.io/My-Portfolio/">
+    <meta property="og:site_name" content="Ranel Zantua">
+    <meta property="og:title" content="Ranel Zantua — IT Student & Developer">
+    <meta property="og:description" content="Portfolio of Ranel Andrew Zantua, an Information Technology student focused on software development, databases, and networking.">
+    <meta property="og:image" content="https://rzantua022.github.io/My-Portfolio/assets/og/og-cover.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Ranel Andrew Zantua — Information Technology student">
+    <meta property="og:locale" content="en_PH">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ranel Zantua — IT Student & Developer">
+    <meta name="twitter:description" content="Portfolio of Ranel Andrew Zantua, an Information Technology student focused on software development, databases, and networking.">
+    <meta name="twitter:image" content="https://rzantua022.github.io/My-Portfolio/assets/og/og-cover.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="style.css">
 
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ranel Andrew Zantua",
+        "url": "https://rzantua022.github.io/My-Portfolio/",
+        "image": "https://rzantua022.github.io/My-Portfolio/assets/img/profile.jpg",
+        "jobTitle": "Information Technology Student",
+        "description": "Information Technology student focused on software development, databases, and networking.",
+        "email": "mailto:ranel.zantua28@gmail.com",
+        "affiliation": {
+            "@type": "CollegeOrUniversity",
+            "name": "Philippine Christian University"
+        },
+        "sameAs": [
+            "https://github.com/rzantua022",
+            "https://www.linkedin.com/in/ranel-z-68131b405"
+        ]
+    }
+    </script>
 </head>
-
 
 <body>
 
-    <h1>🪨 Rock Paper Scissors ✂️</h1>
+    <a href="#top" class="skip-link">Skip to content</a>
 
-    <h2>First to 5 Wins!</h2>
+    <header>
+        <nav>
+            <a href="#top" class="logo">Ranel<span>.</span></a>
+
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navList">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul id="navList">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
 
-    <!-- =================================
-         ANIMATED BATTLE AREA
-    ================================== -->
+    <main id="top" tabindex="-1">
 
-    <div class="battle-area">
+        <section id="hero">
+            <div class="hero-copy">
+                <p class="hero-kicker">Information Technology student</p>
 
-        <!-- PLAYER -->
+                <h1>Ranel Andrew Zantua.</h1>
 
-        <div class="player-side">
+                <p class="hero-lede">
+                    I build software, configure systems, and set up the networks
+                    that keep them talking to each other.
+                </p>
 
-            <h3>YOU</h3>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">View my projects</a>
+                    <a href="#contact" class="btn btn-ghost">Get in touch</a>
+                    <a href="assets/Ranel_Zantua_Resume.pdf" class="btn btn-ghost" download="Ranel_Zantua_Resume.pdf">Download resume</a>
+                </div>
 
-            <div class="image-box">
-
-                <img
-                    id="playerImage"
-                    src="Image/rock.webp"
-                    alt="Player choice"
-                >
-
+                <dl class="hero-stats">
+                    <div>
+                        <dt>3</dt>
+                        <dd>TESDA certifications</dd>
+                    </div>
+                    <div>
+                        <dt>7+</dt>
+                        <dd>Tools &amp; languages</dd>
+                    </div>
+                    <div>
+                        <dt>2</dt>
+                        <dd>Years as Dean's Lister</dd>
+                    </div>
+                </dl>
             </div>
 
-        </div>
+            <div class="hero-frame">
+                <div class="hero-frame-inner">
+                    <img src="assets/img/profile.jpg" alt="Portrait of Ranel Andrew Zantua">
+                </div>
+                <span class="corner corner-tl"></span>
+                <span class="corner corner-tr"></span>
+                <span class="corner corner-bl"></span>
+                <span class="corner corner-br"></span>
+            </div>
+        </section>
 
 
-        <!-- VS -->
-
-        <div class="vs">
-
-            VS
-
-        </div>
-
-
-        <!-- COMPUTER -->
-
-        <div class="player-side">
-
-            <h3>COMPUTER</h3>
-
-            <div class="image-box">
-
-                <img
-                    id="computerImage"
-                    src="Image/rock.webp"
-                    alt="Computer choice"
-                >
-
+        <section id="about" class="reveal">
+            <div class="section-head">
+                <h2>About me</h2>
             </div>
 
+            <div class="about-grid">
+                <p class="about-text">
+                    I'm an Information Technology student interested in software development,
+                    databases, and networking. I like understanding a system from the ground up —
+                    from the hardware it runs on, to the network it sits in, to the code that
+                    makes it useful — and I'm building practical, hands-on skills across all three.
+                </p>
+
+                <ul class="about-facts card">
+                    <li>
+                        <span class="fact-label">Education</span>
+                        <span>BSIT (Networking track), Philippine Christian University &middot; 3rd year, expected 2028</span>
+                    </li>
+                    <li>
+                        <span class="fact-label">Focus</span>
+                        <span>Software development &amp; systems</span>
+                    </li>
+                    <li>
+                        <span class="fact-label">Interests</span>
+                        <span>Databases, networking, web apps</span>
+                    </li>
+                    <li>
+                        <span class="fact-label">Recognition</span>
+                        <span>Dean's Lister, A.Y. 2024&ndash;2025 and 2025&ndash;2026</span>
+                    </li>
+                    <li>
+                        <span class="fact-label">Status</span>
+                        <span>IT student, open to opportunities</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+
+        <section id="skills" class="reveal">
+            <div class="section-head">
+                <h2>Skills</h2>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-group card">
+                    <h3>Programming</h3>
+                    <div class="tag-row">
+                        <span class="tag">C#</span>
+                        <span class="tag">Java</span>
+                        <span class="tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-group card">
+                    <h3>Web development</h3>
+                    <div class="tag-row">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+
+                <div class="skill-group card">
+                    <h3>Systems &amp; networking</h3>
+                    <div class="tag-row">
+                        <span class="tag">Computer systems servicing</span>
+                        <span class="tag">Network setup</span>
+                        <span class="tag">Networking</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="projects" class="reveal">
+            <div class="section-head">
+                <h2>Projects</h2>
+            </div>
+
+            <div class="project-grid">
+                <article class="project-card card card-interactive">
+                    <div class="project-thumb">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2.5" y="8" width="19" height="10" rx="4"></rect>
+                            <path d="M7 11v4M5 13h4"></path>
+                            <circle cx="16" cy="12" r="0.9" fill="currentColor" stroke="none"></circle>
+                            <circle cx="18.2" cy="14.2" r="0.9" fill="currentColor" stroke="none"></circle>
+                        </svg>
+                    </div>
+
+                    <div class="project-body">
+                        <h3>Rock Paper Scissors</h3>
+
+                        <p>
+                            A first-to-five browser game with score tracking, animated results,
+                            dark mode, and a responsive layout.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag tag-small">HTML</span>
+                            <span class="tag tag-small">CSS</span>
+                            <span class="tag tag-small">JavaScript</span>
+                        </div>
+
+                        <a href="https://rzantua022.github.io/rock-paper-scissors/" target="_blank" rel="noopener" class="card-link">
+                            View live demo →
+                        </a>
+                    </div>
+                </article>
+
+
+                <article class="project-card card card-interactive">
+                    <div class="project-thumb">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <path d="M9.4 9.3a2.7 2.7 0 0 1 5.2.9c0 1.8-2.6 2.4-2.6 2.4"></path>
+                            <circle cx="12" cy="16.8" r="0.9" fill="currentColor" stroke="none"></circle>
+                        </svg>
+                    </div>
+
+                    <div class="project-body">
+                        <h3>10 Questions Multiple Choice Game</h3>
+
+                        <p>
+                            A ten-question quiz with four choices each, score tracking, answer
+                            validation, and keyboard controls.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag tag-small">JavaScript</span>
+                        </div>
+
+                        <a href="https://rzantua022.github.io/10-questions-multiple-choices-game/" target="_blank" rel="noopener" class="card-link">
+                            View live demo →
+                        </a>
+                    </div>
+                </article>
+
+
+                <article class="project-card card card-interactive">
+                    <div class="project-thumb">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="4.5" r="2"></circle>
+                            <circle cx="5" cy="19" r="2"></circle>
+                            <circle cx="19" cy="19" r="2"></circle>
+                            <path d="M12 6.5v5M12 11.5l-6.2 5.7M12 11.5l6.2 5.7"></path>
+                        </svg>
+                    </div>
+
+                    <div class="project-body">
+                        <h3>Networking project</h3>
+
+                        <p>
+                            A star topology with a VLAN for a simulated small office
+                            (admin and front-desk PCs), built in Cisco Packet Tracer.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag tag-small">Cisco Packet Tracer</span>
+                            <span class="tag tag-small">VLAN</span>
+                        </div>
+                    </div>
+                </article>
+
+
+                <article class="project-card card card-interactive">
+                    <div class="project-thumb">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <ellipse cx="12" cy="5" rx="8" ry="3"></ellipse>
+                            <path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5"></path>
+                            <path d="M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"></path>
+                        </svg>
+                    </div>
+
+                    <div class="project-body">
+                        <h3>Database project</h3>
+
+                        <p>
+                            A database application demonstrating SQL, data management,
+                            and relational database design.
+                        </p>
+
+                        <div class="tag-row">
+                            <span class="tag tag-small">SQL Server</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <section id="certifications" class="reveal">
+            <div class="section-head">
+                <h2>Certifications</h2>
+                <p class="section-note">TESDA Online Program — Computer Systems Servicing learning path</p>
+            </div>
+
+            <ol class="certification-container">
+
+                <li class="certification-card card card-interactive">
+                    <button class="cert-thumb" data-cert="intro" aria-label="View Introduction to Computer Systems Servicing certificate">
+                        <img src="assets/certs/intro-computer-systems-servicing.jpg" alt="Certificate: Introduction to Computer Systems Servicing">
+                    </button>
+
+                    <div class="cert-body">
+                        <h3>Introduction to Computer Systems Servicing</h3>
+                        <p class="issuer">TESDA Online Program</p>
+                        <p class="date">Completed June 3, 2026</p>
+                        <p class="cert-code">Code&nbsp;YVPPDb4LCY</p>
+                        <a href="assets/certs/intro-computer-systems-servicing.pdf" class="card-link" target="_blank" rel="noopener">
+                            View certificate
+                        </a>
+                    </div>
+                </li>
+
+
+                <li class="certification-card card card-interactive">
+                    <button class="cert-thumb" data-cert="install" aria-label="View Installing and Configuring Computer Systems certificate">
+                        <img src="assets/certs/installing-configuring-computer-systems.jpg" alt="Certificate: Installing and Configuring Computer Systems">
+                    </button>
+
+                    <div class="cert-body">
+                        <h3>Installing and Configuring Computer Systems</h3>
+                        <p class="issuer">TESDA Online Program</p>
+                        <p class="date">Completed June 11, 2026</p>
+                        <p class="cert-code">Code&nbsp;XFG9Q0rmxD</p>
+                        <a href="assets/certs/installing-configuring-computer-systems.pdf" class="card-link" target="_blank" rel="noopener">
+                            View certificate
+                        </a>
+                    </div>
+                </li>
+
+
+                <li class="certification-card card card-interactive">
+                    <button class="cert-thumb" data-cert="network" aria-label="View Setting Up Computer Networks certificate">
+                        <img src="assets/certs/setting-up-computer-networks.jpg" alt="Certificate: Setting Up Computer Networks">
+                    </button>
+
+                    <div class="cert-body">
+                        <h3>Setting Up Computer Networks</h3>
+                        <p class="issuer">TESDA Online Program</p>
+                        <p class="date">Completed August 26, 2026</p>
+                        <p class="cert-code">Code&nbsp;x73FwfREcd</p>
+                        <a href="assets/certs/setting-up-computer-networks.pdf" class="card-link" target="_blank" rel="noopener">
+                            View certificate
+                        </a>
+                    </div>
+                </li>
+
+            </ol>
+        </section>
+
+
+        <section id="contact" class="reveal">
+            <div class="contact-panel card">
+                <div>
+                    <h2>Let's build something.</h2>
+                    <p>
+                        Interested in working together or discussing a project?
+                        Send me a message and I'll get back to you.
+                    </p>
+                </div>
+
+                <div class="contact-actions">
+                    <a href="mailto:ranel.zantua28@gmail.com" class="btn btn-primary">Email me</a>
+                    <a href="https://github.com/rzantua022" class="btn btn-ghost" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.linkedin.com/in/ranel-z-68131b405" class="btn btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://github.com/rzantua022" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/ranel-z-68131b405" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:ranel.zantua28@gmail.com">Email</a>
         </div>
+        <p>&copy; 2026 Ranel Andrew Zantua. All rights reserved.</p>
+    </footer>
 
+    <div class="lightbox" id="certLightbox" role="dialog" aria-modal="true" aria-label="Certificate viewer" hidden>
+        <div class="lightbox-backdrop" data-close></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose" data-close aria-label="Close certificate viewer">&times;</button>
+            <img src="" alt="" id="lightboxImage">
+            <div class="lightbox-controls">
+                <button class="lightbox-nav" id="lightboxPrev" aria-label="Previous certificate">&lsaquo;</button>
+                <p class="lightbox-caption" id="lightboxCaption" aria-live="polite"></p>
+                <button class="lightbox-nav" id="lightboxNext" aria-label="Next certificate">&rsaquo;</button>
+            </div>
+        </div>
     </div>
-
-
-    <!-- =================================
-         CHOICES
-    ================================== -->
-
-    <div
-        class="choices"
-        id="choices"
-    >
-
-        <button onclick="playRound('rock')">
-
-            🪨
-            <br>
-            Rock
-
-        </button>
-
-
-        <button onclick="playRound('paper')">
-
-            📄
-            <br>
-            Paper
-
-        </button>
-
-
-        <button onclick="playRound('scissors')">
-
-            ✂️
-            <br>
-            Scissors
-
-        </button>
-
-    </div>
-
-
-    <!-- =================================
-         RESULT
-    ================================== -->
-
-    <div id="result">
-
-        Choose your move!
-
-    </div>
-
-
-    <!-- =================================
-         SCORE
-    ================================== -->
-
-    <div id="score">
-
-        You: 0 | Computer: 0
-
-    </div>
-
-
-    <!-- =================================
-         PLAY AGAIN
-    ================================== -->
-
-    <button
-        id="playAgain"
-        onclick="newGame()"
-    >
-
-        🔄 Play Again
-
-    </button>
-
 
     <script src="script.js"></script>
 
